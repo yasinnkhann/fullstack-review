@@ -16,18 +16,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      type: 'GET',
-      url: 'http://localhost:1128/repos',
-      contentType: 'application/json',
-      success: (res) => {
+    $.get('http://localhost:1128/repos')
+      .then(res => {
         console.log('GET RESPONSE: ', res);
         this.setState({ repos: res });
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+      })
+      .catch(err => console.error(err))
   }
 
   search (term) {
@@ -41,7 +35,7 @@ class App extends React.Component {
       success: (res) => {
         console.log('POST RESPONSE: ', res);
         $.get('http://localhost:1128/repos')
-          .then((res) => {
+          .then(res => {
             console.log('UPDATED GET RESPONSE!: ', res);
             this.setState({ repos: res });
           })
@@ -54,12 +48,14 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
+    return (
+    <div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos} />
       <Repos repos={this.state.repos} />
       <Search onSearch={this.search} />
-    </div>)
+    </div>
+    );
   }
 }
 
