@@ -9,23 +9,20 @@ mongoose.connect('mongodb://localhost/fetcher', options);
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  _id: Number, // id
-  // repoId: Number, // id
-  repoName: String, // name
-  username: String, // owner.login
-  userId: Number, // owner.id
-  githubUrl: String, // owner.url
-  reposUrl: String, // owner.repos_url
-  repoUrl: String, // html_url
-  forkCount: Number, // forks_count
-  starCount: Number, // stargazers_count
-  watchCount: Number, // watchers_count
+  _id: Number,
+  repoName: String,
+  username: String,
+  userId: Number,
+  githubUrl: String,
+  reposUrl: String,
+  repoUrl: String,
+  forkCount: Number,
+  starCount: Number,
+  watchCount: Number,
 });
 
 
 const Repo = mongoose.model('Repo', repoSchema);
-
-// Repo.init();
 
 const save = async (repos, cb) => {
   // TODO: Your code here
@@ -47,7 +44,6 @@ const save = async (repos, cb) => {
       };
       const freshRepo = new Repo(editedRepo);
       await freshRepo.save();
-      savedRepos.push(freshRepo);
     }
     cb(null, repos);
   } catch (err) {
@@ -57,6 +53,17 @@ const save = async (repos, cb) => {
       cb(err, null);
     }
   }
-}
+};
+
+const getAllRepos = async cb => {
+  try {
+    const res = await Repo.find().sort({ forkCount: -1 })
+    cb(null, res);
+  } catch (err) {
+    cb(err, null);
+  }
+};
 
 module.exports.save = save;
+
+module.exports.getAllRepos = getAllRepos;

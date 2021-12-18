@@ -14,6 +14,10 @@ class App extends React.Component {
     this.search = this.search.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     // TODO

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { getReposByUsername } = require('../helpers/github.js');
-const { save } = require('../database/index.js');
+const { save, getAllRepos } = require('../database/index.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -44,6 +44,14 @@ app.post('/repos', async function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  getAllRepos((err, repos) => {
+    if (err) {
+      console.error(err);
+      res.status(404).json('Could not get repos');
+    } else {
+      res.status(200).json(repos);
+    }
+  });
 });
 
 let port = 1128;
