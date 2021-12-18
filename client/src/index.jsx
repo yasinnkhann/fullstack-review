@@ -39,7 +39,13 @@ class App extends React.Component {
       data: JSON.stringify({ username: term }),
       contentType: 'application/json',
       success: (res) => {
-        console.log('RESPONSE: ', res);
+        console.log('POST RESPONSE: ', res);
+        $.get('http://localhost:1128/repos')
+          .then((res) => {
+            console.log('UPDATED GET RESPONSE!: ', res);
+            this.setState({ repos: res });
+          })
+          .catch(err => console.error(err))
       },
       error: (err) => {
         console.error('ERROR: ', err);

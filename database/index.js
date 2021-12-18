@@ -30,6 +30,7 @@ const save = async (repos, cb) => {
   // the MongoDB
   try {
     for (const repo of repos) {
+
       const editedRepo = {
         _id: repo.id,
         repoName: repo.name,
@@ -42,6 +43,7 @@ const save = async (repos, cb) => {
         starCount: repo.stargazers_count,
         watchCount:repo.watchers_count
       };
+
       const freshRepo = new Repo(editedRepo);
       await freshRepo.save();
     }

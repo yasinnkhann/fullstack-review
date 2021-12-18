@@ -12,7 +12,11 @@ export default class Repo extends Component {
     return (
       <Fragment>
         <div>
-          <li>{this.props.repo.repoName}</li>
+          <li>
+            <a href={this.props.repo.repoUrl} target="_blank">
+              {this.props.repo.repoName}
+            </a>
+          </li>
         </div>
       </Fragment>
     );
