@@ -57,7 +57,7 @@ const save = async (repos, cb) => {
 
 const getAllRepos = async cb => {
   try {
-    const res = await Repo.find().sort({ forkCount: -1 })
+    const res = await Repo.find().limit(25).sort({ forkCount: -1 })
     cb(null, res);
   } catch (err) {
     cb(err, null);

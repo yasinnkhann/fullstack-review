@@ -29,16 +29,6 @@ app.post('/repos', async function (req, res) {
       });
     }
   })
-
-  ////////////////////////////////////////
-  // try {
-  //   const repos = await getReposByUsername(username)
-  //   const savedRepos = await save(repos);
-  //   res.status(200).json(repos);
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(404).json('Unable to get repos');
-  // }
 });
 
 app.get('/repos', function (req, res) {
