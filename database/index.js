@@ -23,13 +23,14 @@ let repoSchema = mongoose.Schema({
 
 const Repo = mongoose.model('Repo', repoSchema);
 
+
 const save = async (repos, cb) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
+  const savedRecords = [];
   try {
     for (const repo of repos) {
-
       const editedRepo = {
         _id: repo.id,
         repoName: repo.name,
@@ -45,11 +46,12 @@ const save = async (repos, cb) => {
 
       const freshRepo = new Repo(editedRepo);
       await freshRepo.save();
+      savedRecords.push(freshRepo._doc);
     }
-    cb(null, repos);
+    cb(null, savedRecords);
   } catch (err) {
     if (err.code = 11000) {
-      cb(null, 'duplicates');
+      cb(null, savedRecords);
     } else {
       cb(err, null);
     }

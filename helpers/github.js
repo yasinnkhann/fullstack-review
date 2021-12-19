@@ -22,7 +22,6 @@ const getReposByUsername = async (username, cb) => {
     console.error(err);
     cb(err, null);
   }
-
 }
 
 module.exports.getReposByUsername = getReposByUsername;

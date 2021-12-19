@@ -18,7 +18,7 @@ class App extends React.Component {
   componentDidMount() {
     $.get('http://localhost:1128/repos')
       .then(res => {
-        console.log('GET RESPONSE: ', res);
+        console.log('GET RESPONSE ON MOUNT: ', res);
         this.setState({ repos: res });
       })
       .catch(err => console.error(err))

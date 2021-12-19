@@ -24,7 +24,7 @@ app.post('/repos', async function (req, res) {
           console.error(err);
           res.status(400).json('Unable to write repos');
         } else {
-          res.status(201).json(repos);
+          res.status(201).json(data);
         }
       });
     }
