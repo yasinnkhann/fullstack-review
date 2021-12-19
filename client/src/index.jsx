@@ -31,15 +31,13 @@ class App extends React.Component {
     const reposCopy = [...this.state.repos];
     const updatedRepos = [];
 
-    if (latestRepos.length === reposCopy.length) {
       for (let i = 0; i < latestRepos.length; i++) {
-        if (latestRepos[i].updatedAt !== reposCopy.updatedAt) {
+        if (latestRepos[i].updatedAt !== reposCopy.updatedAt && latestRepos[i]._id === reposCopy._id) {
           // if (!updatedRepos.includes(latestRepos[i].updatedAt)) {
             updatedRepos.push(latestRepos[i]);
           // }
         }
       }
-    }
     this.setState({ reposUpdated: updatedRepos });
   }
 
