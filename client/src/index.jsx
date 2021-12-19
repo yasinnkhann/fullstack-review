@@ -30,15 +30,16 @@ class App extends React.Component {
   handleUpdatedRepos(latestRepos) {
     const reposCopy = [...this.state.repos];
     const updatedRepos = [];
-
-      for (let i = 0; i < latestRepos.length; i++) {
-        if (latestRepos[i].updatedAt !== reposCopy.updatedAt && latestRepos[i]._id === reposCopy._id) {
-          // if (!updatedRepos.includes(latestRepos[i].updatedAt)) {
-            updatedRepos.push(latestRepos[i]);
-          // }
+      if (this.state.reposImported.length > 0) {
+        for (let i = 0; i < latestRepos.length; i++) {
+          if (latestRepos[i].updatedAt !== reposCopy.updatedAt && latestRepos[i]._id === reposCopy._id) {
+              updatedRepos.push(latestRepos[i]);
+          }
         }
+        this.setState({ reposUpdated: updatedRepos });
+      } else {
+        this.setState({ reposUpdated: updatedRepos });
       }
-    this.setState({ reposUpdated: updatedRepos });
   }
 
   search (term) {
