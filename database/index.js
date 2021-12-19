@@ -19,10 +19,12 @@ let repoSchema = mongoose.Schema({
   forkCount: Number,
   starCount: Number,
   watchCount: Number,
+  createdAt: String,
+  updatedAt: String,
+  pushedAt: String
 });
 
 const Repo = mongoose.model('Repo', repoSchema);
-
 
 const save = async (repos, cb) => {
   // TODO: Your code here
@@ -41,7 +43,10 @@ const save = async (repos, cb) => {
         repoUrl: repo.html_url,
         forkCount: repo.forks_count,
         starCount: repo.stargazers_count,
-        watchCount:repo.watchers_count
+        watchCount:repo.watchers_count,
+        createdAt: repo.created_at,
+        updatedAt: repo.updated_at,
+        pushedAt: repo.pushed_at
       };
 
       const freshRepo = new Repo(editedRepo);
