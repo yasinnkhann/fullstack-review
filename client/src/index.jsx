@@ -15,6 +15,7 @@ class App extends React.Component {
     };
     // BINDERS
     this.search = this.search.bind(this);
+    this.handleUpdatedRepos = this.handleUpdatedRepos.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,22 @@ class App extends React.Component {
         this.setState({ repos: res });
       })
       .catch(err => console.error(err))
+  }
+
+  handleUpdatedRepos(latestRepos) {
+    const reposCopy = [...this.state.repos];
+    const updatedRepos = [];
+
+    if (latestRepos.length === reposCopy.length) {
+      for (let i = 0; i < latestRepos.length; i++) {
+        if (latestRepos[i].updatedAt !== reposCopy.updatedAt) {
+          // if (!updatedRepos.includes(latestRepos[i].updatedAt)) {
+            updatedRepos.push(latestRepos[i]);
+          // }
+        }
+      }
+    }
+    this.setState({ reposUpdated: updatedRepos });
   }
 
   search (term) {
@@ -38,7 +55,8 @@ class App extends React.Component {
         console.log('POST RESPONSE: ', resp);
         this.setState({ reposImported: resp });
         $.get('http://localhost:1128/repos')
-          .then(res => {
+        .then(res => {
+            this.handleUpdatedRepos(res);
             console.log('UPDATED GET RESPONSE!: ', res);
             this.setState({ repos: res });
           })
